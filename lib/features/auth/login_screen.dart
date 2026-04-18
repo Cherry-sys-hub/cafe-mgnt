@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/services/auth_provider.dart';
 import '../../core/services/auth_service.dart';
 import '../admin/admin_dashboard.dart';
 import '../kitchen/kitchen_dashboard.dart';
 import '../reception/reception_dashboard.dart';
 import '../waiter/waiter_dashboard.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -28,6 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _navigateToDashboard(String role) {
+    // Update Riverpod state
+    ref.read(authProvider.notifier).login(role);
+
     Widget dashboard;
     switch (role) {
       case 'Admin':
@@ -153,7 +158,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: Colors.brown,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('Login'),
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
                 ),
               ],
             ),
