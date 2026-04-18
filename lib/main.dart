@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 
+import 'features/auth/login_screen.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(const CafeMgntApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CafeMgntApp extends StatelessWidget {
+  const CafeMgntApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Hello')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Container(child: Text('Hello World'))],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Cafe Management System',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
+        useMaterial3: true,
       ),
+      home: const LoginScreen(),
     );
   }
 }
